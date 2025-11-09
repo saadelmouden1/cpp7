@@ -50,7 +50,31 @@ class Array{
 
         }
 
-};
+        T &operator[](unsigned int sz)
+        {
+            if(sz >= this->_size || this->data == NULL)
+            {
+                std::cout<<"index: "<< index<<std::endl;
+                throw Array<T>::InvalidIndexException();
+            }
+            return (this->data[sz]);
+        }
 
+        class InvalidIndexException: public std::exception
+        {
+            public:
+                virtual const char *what() const throw();
+        };
+
+        unsigned int size()const{
+            return (this->_size);
+        }
+
+};
+template <typename T>
+const char *Array<T>::InvalidIndexException::what() const throw()
+{
+    return "invalid index";
+}
 
 #endif
